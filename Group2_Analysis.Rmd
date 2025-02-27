@@ -32,3 +32,20 @@ print(region_summary)
 
 
 ```
+
+```{r}
+
+# Reading the dataset
+data <- read.csv("globalterrorismdb_0718dist.csv", stringsAsFactors = FALSE)
+
+# Aggregating fatalities by region
+total_fatalities_per_region <- aggregate(nkill ~ region, data, sum, na.rm = TRUE)
+
+# Sorting the result in descending order
+total_fatalities_per_region <- total_fatalities_per_region[order(-total_fatalities_per_region$nkill), ]
+
+# Printing the result
+print(total_fatalities_per_region)
+
+```
+
