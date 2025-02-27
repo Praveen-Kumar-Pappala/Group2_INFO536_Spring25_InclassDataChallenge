@@ -9,7 +9,7 @@ output: html_document
 
 # Load necessary libraries
 library(readr)
-library(dplyr)
+library(dplyr) 
 
 # Load the dataset
 file_path <- "globalterrorismdb_0718dist.csv"
@@ -29,6 +29,7 @@ region_summary <- df %>%
 
 # View the summarized data
 print(region_summary)
+
 
 
 ```
