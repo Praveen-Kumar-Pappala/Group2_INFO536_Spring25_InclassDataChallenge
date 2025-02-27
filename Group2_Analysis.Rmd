@@ -10,10 +10,12 @@ output: html_document
 # Load necessary libraries
 library(readr)
 library(dplyr)
+library(ggplot2)
 
 # Load the dataset
 file_path <- "globalterrorismdb_0718dist.csv"
-df <- read_csv(file_path)
+df <- read_csv("C:/Users/ual-laptop/Documents/Group2_INFO536_Spring25_InclassDataChallenge/GTDdata/globalterrorismdb_0718dist.csv")
+
 
 head(df)
 str(df)
@@ -30,5 +32,17 @@ region_summary <- df %>%
 # View the summarized data
 print(region_summary)
 
+```
+
+```{r}
+# Visualization: Total Fatalities by Region
+ggplot(total_fatalities_per_region, aes(x = reorder(as.factor(region), -nkill), y = nkill)) +
+  geom_col(fill = "steelblue") +
+  labs(title = "Total Fatalities by Region",
+       x = "Region",
+       y = "Number of Fatalities") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate labels for better readability
 
 ```
+
