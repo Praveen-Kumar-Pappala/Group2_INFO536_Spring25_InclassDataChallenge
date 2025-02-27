@@ -1,0 +1,61 @@
+---
+title: "Group-II"
+author: "Noureen Mithaigar"
+date: "`r Sys.Date()`"
+output: html_document
+---
+  
+```{r}
+
+# Load necessary libraries
+library(readr)
+library(dplyr) 
+library(ggplot2)
+# Load the dataset
+file_path <- "globalterrorismdb_0718dist.csv"
+df <- read_csv("C:/Users/ual-laptop/Documents/Group2_INFO536_Spring25_InclassDataChallenge/GTDdata/globalterrorismdb_0718dist.csv")
+
+head(df)
+str(df)
+
+# Grouping and summarizing the data by region
+region_summary <- df %>%
+  group_by(region) %>%
+  summarise(
+    total_attacks = n(),
+    avg_killings = mean(nkill, na.rm = TRUE),
+    avg_woundings = mean(nwound, na.rm = TRUE)
+  )
+
+# View the summarized data
+print(region_summary)
+
+
+
+```
+
+```{r}
+
+# Reading the dataset
+data <- read.csv("C:/Users/ual-laptop/Documents/Group2_INFO536_Spring25_InclassDataChallenge/GTDdata/globalterrorismdb_0718dist.csv", stringsAsFactors = FALSE)
+
+# Aggregating fatalities by region
+total_fatalities_per_region <- aggregate(nkill ~ region, data, sum, na.rm = TRUE)
+
+# Sorting the result in descending order
+total_fatalities_per_region <- total_fatalities_per_region[order(-total_fatalities_per_region$nkill), ]
+
+# Printing the result
+print(total_fatalities_per_region)
+
+```
+```{r}
+# Visualization of Total Fatalities by Region
+ggplot(total_fatalities_per_region, aes(x = reorder(as.factor(region), -nkill), y = nkill)) +
+  geom_col(fill = "red") +
+  labs(title = "Total Fatalities by Region",
+       x = "Region",
+       y = "Number of Fatalities") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
