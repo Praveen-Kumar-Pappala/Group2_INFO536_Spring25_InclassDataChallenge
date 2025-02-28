@@ -1,6 +1,6 @@
 ---
 title: "Group2_Analysis"
-author: "Praveen Kumar Pappala"
+author: "Partha Vemuri"
 date: "2025-02-27"
 output: html_document
 ---
@@ -14,8 +14,6 @@ library(ggplot2)
 
 # Load the dataset
 file_path <- "globalterrorismdb_0718dist.csv"
-df <- read_csv("C:/Users/ual-laptop/Documents/Group2_INFO536_Spring25_InclassDataChallenge/GTDdata/globalterrorismdb_0718dist.csv")
-
 
 head(df)
 str(df)
@@ -35,6 +33,20 @@ print(region_summary)
 ```
 
 ```{r}
+
+# Aggregating fatalities by region
+total_fatalities_per_region <- aggregate(nkill ~ region, data, sum, na.rm = TRUE)
+
+# Sorting the result in descending order
+total_fatalities_per_region <- total_fatalities_per_region[order(-total_fatalities_per_region$nkill), ]
+
+# Printing the result
+print(total_fatalities_per_region)
+
+```
+
+```{r}
+
 # Visualization: Total Fatalities by Region
 ggplot(total_fatalities_per_region, aes(x = reorder(as.factor(region), -nkill), y = nkill)) +
   geom_col(fill = "steelblue") +
@@ -45,4 +57,3 @@ ggplot(total_fatalities_per_region, aes(x = reorder(as.factor(region), -nkill), 
   theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate labels for better readability
 
 ```
-
